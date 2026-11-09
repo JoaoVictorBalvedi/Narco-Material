@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light dark;
+  --fundo: #f7f5f3;
+  --superficie: #ffffff;
+  --texto: #1c1917;
+  --suave: #665f5a;
+  --borda: #e2dcd7;
+  --marca: #a92b1f;
+  --marca-texto: #ffffff;
+  --marca-suave: #f9e7e4;
+  --marca-forte: #8f2318;
+  --sucesso: #1b6e3c;
+  --sucesso-suave: #e3f3e8;
+  --alerta: #8a5a00;
+  --alerta-suave: #fbf0d9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #141211;
+    --superficie: #1f1c1a;
+    --texto: #f5f2ef;
+    --suave: #aca59f;
+    --borda: #36312d;
+    --marca: #ef6f5e;
+    --marca-texto: #1f0b08;
+    --marca-suave: #3a1c18;
+    --marca-forte: #f58b7c;
+    --sucesso: #6fd191;
+    --sucesso-suave: #17301f;
+    --alerta: #e8bb64;
+    --alerta-suave: #33280f;
+  }
+}
+
+@theme inline {
+  --color-fundo: var(--fundo);
+  --color-superficie: var(--superficie);
+  --color-texto: var(--texto);
+  --color-suave: var(--suave);
+  --color-borda: var(--borda);
+  --color-marca: var(--marca);
+  --color-marca-texto: var(--marca-texto);
+  --color-marca-suave: var(--marca-suave);
+  --color-marca-forte: var(--marca-forte);
+  --color-sucesso: var(--sucesso);
+  --color-sucesso-suave: var(--sucesso-suave);
+  --color-alerta: var(--alerta);
+  --color-alerta-suave: var(--alerta-suave);
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  touch-action: manipulation;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer components {
+  .cartao {
+    @apply rounded-2xl border border-borda bg-superficie p-4 shadow-[0_1px_2px_rgb(0_0_0/0.04)];
+  }
+  .botao {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-marca px-4 text-sm font-semibold text-marca-texto transition-colors hover:bg-marca-forte disabled:opacity-60;
+  }
+  .botao-secundario {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-borda bg-superficie px-4 text-sm font-semibold text-texto transition-colors hover:bg-fundo disabled:opacity-60;
+  }
+  .link-acao {
+    @apply inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-marca hover:underline;
+  }
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+  /* 16px no campo evita o zoom automático do iPhone. */
+  .campo {
+    @apply min-h-11 w-full rounded-lg border border-borda bg-superficie px-3 text-base text-texto;
+  }
+  .rotulo {
+    @apply mb-1 block text-sm font-medium;
+  }
+  .selo {
+    @apply inline-flex items-center rounded-full bg-fundo px-2 py-0.5 text-xs font-medium text-suave;
+  }
+  .selo-marca {
+    @apply inline-flex items-center rounded-full bg-marca-suave px-2 py-0.5 text-xs font-medium text-marca;
+  }
+  .selo-alerta {
+    @apply inline-flex items-center rounded-full bg-alerta-suave px-2 py-0.5 text-xs font-medium text-alerta;
+  }
+  :where(a, button, input, select):focus-visible {
+    outline: 2px solid var(--marca);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .selo-sucesso {
+    @apply inline-flex items-center rounded-full bg-sucesso-suave px-2 py-0.5 text-xs font-medium text-sucesso;
+  }
+  .sanfona > summary {
+    @apply flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 font-semibold;
+  }
+  .sanfona > summary::-webkit-details-marker {
+    display: none;
+  }
+  .sanfona > summary::after {
+    content: "+";
+    @apply text-xl font-normal text-suave;
+  }
+  .sanfona[open] > summary::after {
+    content: "−";
+  }
+  .opcao {
+    @apply flex min-h-11 items-center gap-2 text-sm;
+  }
+  .opcao input {
+    @apply size-5 shrink-0 accent-marca;
+  }
+}
+
+@layer components {
+  .pilula {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full border border-borda bg-superficie px-4 text-sm font-medium;
+  }
+  .pilula:has(input:checked),
+  .pilula-ativa {
+    @apply border-marca bg-marca-suave font-semibold text-marca;
+  }
+  .pilula:has(input:focus-visible) {
+    outline: 2px solid var(--marca);
+    outline-offset: 2px;
+  }
+}
